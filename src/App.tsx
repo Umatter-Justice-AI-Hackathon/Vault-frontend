@@ -128,7 +128,7 @@ export default function App() {
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-950">
       {/* Animated background effects */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        {/* Floating orbs with animation */}
+        {/* Floating orbs with animation - Layer 1 */}
         <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full opacity-25 blur-3xl"
           style={{ background: 'radial-gradient(circle, rgba(20, 184, 166, 0.4) 0%, transparent 70%)', animation: 'float 8s ease-in-out infinite' }} />
         <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full opacity-20 blur-3xl"
@@ -145,6 +145,42 @@ export default function App() {
           style={{ background: 'radial-gradient(circle, rgba(34, 197, 94, 0.3) 0%, transparent 70%)', animation: 'float 13s ease-in-out infinite 4s' }} />
         <div className="absolute bottom-[40%] right-[5%] w-[380px] h-[380px] rounded-full opacity-18 blur-3xl"
           style={{ background: 'radial-gradient(circle, rgba(251, 191, 36, 0.2) 0%, transparent 70%)', animation: 'float 15s ease-in-out infinite 2s' }} />
+        
+        {/* Layer 2 - More orbs */}
+        <div className="absolute top-[35%] left-[5%] w-[420px] h-[420px] rounded-full opacity-18 blur-3xl"
+          style={{ background: 'radial-gradient(circle, rgba(59, 130, 246, 0.35) 0%, transparent 70%)', animation: 'float 9s ease-in-out infinite 1s' }} />
+        <div className="absolute top-[75%] right-[40%] w-[340px] h-[340px] rounded-full opacity-15 blur-3xl"
+          style={{ background: 'radial-gradient(circle, rgba(168, 85, 247, 0.3) 0%, transparent 70%)', animation: 'float 11s ease-in-out infinite reverse 3s' }} />
+        <div className="absolute top-[15%] left-[70%] w-[380px] h-[380px] rounded-full opacity-20 blur-3xl"
+          style={{ background: 'radial-gradient(circle, rgba(14, 165, 233, 0.35) 0%, transparent 70%)', animation: 'float 13s ease-in-out infinite 2s' }} />
+        <div className="absolute bottom-[5%] left-[40%] w-[460px] h-[460px] rounded-full opacity-18 blur-3xl"
+          style={{ background: 'radial-gradient(circle, rgba(45, 212, 191, 0.3) 0%, transparent 70%)', animation: 'float 10s ease-in-out infinite 4s' }} />
+        <div className="absolute top-[45%] right-[60%] w-[290px] h-[290px] rounded-full opacity-15 blur-3xl"
+          style={{ background: 'radial-gradient(circle, rgba(244, 114, 182, 0.28) 0%, transparent 70%)', animation: 'float 14s ease-in-out infinite reverse 1s' }} />
+        <div className="absolute bottom-[30%] left-[25%] w-[350px] h-[350px] rounded-full opacity-17 blur-3xl"
+          style={{ background: 'radial-gradient(circle, rgba(132, 204, 22, 0.25) 0%, transparent 70%)', animation: 'float 12s ease-in-out infinite 5s' }} />
+        <div className="absolute top-[20%] right-[30%] w-[310px] h-[310px] rounded-full opacity-14 blur-3xl"
+          style={{ background: 'radial-gradient(circle, rgba(249, 115, 22, 0.22) 0%, transparent 70%)', animation: 'float 16s ease-in-out infinite 2s' }} />
+        <div className="absolute bottom-[50%] right-[20%] w-[400px] h-[400px] rounded-full opacity-16 blur-3xl"
+          style={{ background: 'radial-gradient(circle, rgba(139, 92, 246, 0.3) 0%, transparent 70%)', animation: 'float 8s ease-in-out infinite reverse 3s' }} />
+        
+        {/* Layer 3 - Even more orbs */}
+        <div className="absolute top-[8%] left-[20%] w-[360px] h-[360px] rounded-full opacity-16 blur-3xl"
+          style={{ background: 'radial-gradient(circle, rgba(34, 211, 238, 0.32) 0%, transparent 70%)', animation: 'float 11s ease-in-out infinite 2s' }} />
+        <div className="absolute bottom-[20%] right-[55%] w-[430px] h-[430px] rounded-full opacity-19 blur-3xl"
+          style={{ background: 'radial-gradient(circle, rgba(192, 132, 252, 0.28) 0%, transparent 70%)', animation: 'float 9s ease-in-out infinite reverse 4s' }} />
+        <div className="absolute top-[55%] left-[15%] w-[370px] h-[370px] rounded-full opacity-17 blur-3xl"
+          style={{ background: 'radial-gradient(circle, rgba(74, 222, 128, 0.3) 0%, transparent 70%)', animation: 'float 13s ease-in-out infinite 1s' }} />
+        <div className="absolute top-[30%] right-[10%] w-[320px] h-[320px] rounded-full opacity-15 blur-3xl"
+          style={{ background: 'radial-gradient(circle, rgba(251, 146, 60, 0.25) 0%, transparent 70%)', animation: 'float 15s ease-in-out infinite 3s' }} />
+        <div className="absolute bottom-[60%] left-[45%] w-[280px] h-[280px] rounded-full opacity-14 blur-3xl"
+          style={{ background: 'radial-gradient(circle, rgba(56, 189, 248, 0.32) 0%, transparent 70%)', animation: 'float 10s ease-in-out infinite reverse 2s' }} />
+        <div className="absolute top-[70%] right-[35%] w-[390px] h-[390px] rounded-full opacity-18 blur-3xl"
+          style={{ background: 'radial-gradient(circle, rgba(217, 70, 239, 0.26) 0%, transparent 70%)', animation: 'float 12s ease-in-out infinite 5s' }} />
+        <div className="absolute bottom-[10%] right-[15%] w-[340px] h-[340px] rounded-full opacity-16 blur-3xl"
+          style={{ background: 'radial-gradient(circle, rgba(20, 184, 166, 0.3) 0%, transparent 70%)', animation: 'float 14s ease-in-out infinite reverse 1s' }} />
+        <div className="absolute top-[40%] left-[35%] w-[300px] h-[300px] rounded-full opacity-13 blur-3xl"
+          style={{ background: 'radial-gradient(circle, rgba(99, 102, 241, 0.28) 0%, transparent 70%)', animation: 'float 11s ease-in-out infinite 4s' }} />
         
         {/* Subtle grid pattern */}
         <div className="absolute inset-0 opacity-[0.02]"
