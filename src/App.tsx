@@ -38,11 +38,24 @@ export default function App() {
   const [engagementScore, setEngagementScore] = useState(70)
   const [intervention, setIntervention] = useState<'breathing' | 'grounding' | null>(null)
   const [completedActions, setCompletedActions] = useState<Set<number>>(new Set([2]))
+  const [scrollY, setScrollY] = useState(0)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
+
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY)
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  // Calculate dynamic logo size based on scroll (224px -> 64px, faster shrink)
+  const logoHeight = Math.max(64, 224 - scrollY * 1.5)
+  const headerPadding = Math.max(12, 32 - scrollY * 0.2)
+  const showBadge = scrollY < 80
+  const isMinimized = logoHeight <= 64
 
   const sendMessage = async (content: string) => {
     if (!content.trim() || isLoading) return
@@ -113,19 +126,63 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-950">
-      {/* Ambient background effects */}
+      {/* Animated background effects */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full opacity-20 blur-3xl"
-          style={{ background: 'radial-gradient(circle, rgba(20, 184, 166, 0.3) 0%, transparent 70%)' }} />
-        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full opacity-15 blur-3xl"
-          style={{ background: 'radial-gradient(circle, rgba(99, 102, 241, 0.25) 0%, transparent 70%)' }} />
+        {/* Floating orbs with animation */}
+        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full opacity-25 blur-3xl"
+          style={{ background: 'radial-gradient(circle, rgba(20, 184, 166, 0.4) 0%, transparent 70%)', animation: 'float 8s ease-in-out infinite' }} />
+        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full opacity-20 blur-3xl"
+          style={{ background: 'radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, transparent 70%)', animation: 'float 10s ease-in-out infinite reverse' }} />
+        <div className="absolute top-1/2 right-1/3 w-[300px] h-[300px] rounded-full opacity-15 blur-3xl"
+          style={{ background: 'radial-gradient(circle, rgba(16, 185, 129, 0.35) 0%, transparent 70%)', animation: 'float 12s ease-in-out infinite 2s' }} />
+        <div className="absolute top-[10%] right-[15%] w-[350px] h-[350px] rounded-full opacity-18 blur-3xl"
+          style={{ background: 'radial-gradient(circle, rgba(147, 51, 234, 0.3) 0%, transparent 70%)', animation: 'float 14s ease-in-out infinite 1s' }} />
+        <div className="absolute bottom-[15%] left-[10%] w-[450px] h-[450px] rounded-full opacity-20 blur-3xl"
+          style={{ background: 'radial-gradient(circle, rgba(6, 182, 212, 0.35) 0%, transparent 70%)', animation: 'float 11s ease-in-out infinite 3s' }} />
+        <div className="absolute top-[60%] left-[60%] w-[280px] h-[280px] rounded-full opacity-15 blur-3xl"
+          style={{ background: 'radial-gradient(circle, rgba(236, 72, 153, 0.25) 0%, transparent 70%)', animation: 'float 9s ease-in-out infinite reverse 2s' }} />
+        <div className="absolute top-[5%] left-[50%] w-[320px] h-[320px] rounded-full opacity-12 blur-3xl"
+          style={{ background: 'radial-gradient(circle, rgba(34, 197, 94, 0.3) 0%, transparent 70%)', animation: 'float 13s ease-in-out infinite 4s' }} />
+        <div className="absolute bottom-[40%] right-[5%] w-[380px] h-[380px] rounded-full opacity-18 blur-3xl"
+          style={{ background: 'radial-gradient(circle, rgba(251, 191, 36, 0.2) 0%, transparent 70%)', animation: 'float 15s ease-in-out infinite 2s' }} />
+        
+        {/* Subtle grid pattern */}
+        <div className="absolute inset-0 opacity-[0.02]"
+          style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)', backgroundSize: '50px 50px' }} />
+        
+        {/* Moving particles */}
+        <div className="absolute w-2 h-2 rounded-full bg-teal-400/30 top-[20%] left-[10%]" style={{ animation: 'drift 20s linear infinite' }} />
+        <div className="absolute w-1.5 h-1.5 rounded-full bg-emerald-400/25 top-[60%] left-[80%]" style={{ animation: 'drift 25s linear infinite reverse' }} />
+        <div className="absolute w-1 h-1 rounded-full bg-indigo-400/30 top-[40%] left-[50%]" style={{ animation: 'drift 18s linear infinite 5s' }} />
+        <div className="absolute w-2 h-2 rounded-full bg-teal-300/20 top-[80%] left-[30%]" style={{ animation: 'drift 22s linear infinite 3s' }} />
+        <div className="absolute w-1.5 h-1.5 rounded-full bg-purple-400/25 top-[15%] left-[70%]" style={{ animation: 'drift 24s linear infinite 2s' }} />
+        <div className="absolute w-2 h-2 rounded-full bg-cyan-400/20 top-[70%] left-[15%]" style={{ animation: 'drift 19s linear infinite reverse 4s' }} />
       </div>
 
       {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-slate-700/50 bg-slate-900/80 backdrop-blur-xl">
-        <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-          <img src="/logo.png" alt="Vault" className="h-10 w-auto" />
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-500/30">
+      <header className="sticky top-0 z-50 border-b border-neutral-500/30 bg-gradient-to-b from-neutral-400/95 via-neutral-500/90 to-neutral-600/85 backdrop-blur-xl transition-all duration-200">
+        <div 
+          className={`max-w-5xl mx-auto px-4 flex transition-all duration-200 ${isMinimized ? 'flex-row items-center justify-between' : 'flex-col items-center gap-3'}`}
+          style={{ paddingTop: `${headerPadding}px`, paddingBottom: `${headerPadding}px` }}
+        >
+          <div className="relative transition-all duration-200">
+            {!isMinimized && (
+              <div 
+                className="absolute inset-0 bg-gradient-to-r from-teal-400/20 via-white/30 to-emerald-400/20 blur-2xl transition-all duration-200"
+                style={{ transform: `scale(${1.5 - scrollY * 0.005})` }}
+              />
+            )}
+            <img 
+              src="/logo.png" 
+              alt="Vault" 
+              className="relative w-auto transition-all duration-200"
+              style={{ height: `${logoHeight}px` }}
+            />
+          </div>
+          <div 
+            className={`flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 transition-all duration-200 ${isMinimized ? 'scale-90' : ''}`}
+            style={{ opacity: showBadge || isMinimized ? 1 : 0, transform: !showBadge && !isMinimized ? 'translateY(-10px)' : 'translateY(0)' }}
+          >
             <TrendingUp size={16} className="text-emerald-400" />
             <span className="text-sm font-medium text-emerald-400">+18% this week</span>
           </div>

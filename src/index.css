@@ -36,8 +36,19 @@ body {
 
 /* Floating particles */
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  25% { transform: translateY(-15px) translateX(5px); }
+  50% { transform: translateY(-8px) translateX(-5px); }
+  75% { transform: translateY(-20px) translateX(3px); }
+}
+
+/* Drifting particles */
+@keyframes drift {
+  0% { transform: translate(0, 0) rotate(0deg); opacity: 0.3; }
+  25% { transform: translate(100px, -50px) rotate(90deg); opacity: 0.5; }
+  50% { transform: translate(200px, 50px) rotate(180deg); opacity: 0.3; }
+  75% { transform: translate(100px, 100px) rotate(270deg); opacity: 0.5; }
+  100% { transform: translate(0, 0) rotate(360deg); opacity: 0.3; }
 }
 
 .float {
