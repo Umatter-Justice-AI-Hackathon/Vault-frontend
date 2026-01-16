@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { Send, TrendingUp, Sparkles, Activity, CheckCircle2, Circle, Heart, Briefcase, User } from 'lucide-react'
+import { Send, TrendingUp, Sparkles, Activity, CheckCircle2, Circle, Heart, Briefcase, User, Palette, Music, Brain, Footprints, Zap, Wind } from 'lucide-react'
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import { api } from './api/client'
 import type { ChatMessage, ActionItem } from './types'
@@ -401,6 +401,43 @@ export default function App() {
                 <Send size={20} />
               </button>
             </form>
+          </div>
+        </section>
+
+        {/* Sensory Wellness Workouts */}
+        <section className="rounded-2xl bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 p-6">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500/30 to-pink-500/20 flex items-center justify-center">
+              <Sparkles size={20} className="text-purple-400" />
+            </div>
+            <div>
+              <h2 className="text-lg font-semibold text-white">Sensory Wellness</h2>
+              <p className="text-xs text-slate-400">Virtual workouts for mind & body</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {[
+              { icon: Palette, label: 'Immersive Arts', color: 'from-pink-500 to-rose-500', bg: 'from-pink-500/20 to-rose-500/10' },
+              { icon: Music, label: 'Sound Healing', color: 'from-violet-500 to-purple-500', bg: 'from-violet-500/20 to-purple-500/10' },
+              { icon: Brain, label: 'Guided Meditation', color: 'from-indigo-500 to-blue-500', bg: 'from-indigo-500/20 to-blue-500/10' },
+              { icon: Footprints, label: 'Grounding', color: 'from-emerald-500 to-teal-500', bg: 'from-emerald-500/20 to-teal-500/10' },
+              { icon: Zap, label: 'Power Affirmations', color: 'from-amber-500 to-orange-500', bg: 'from-amber-500/20 to-orange-500/10' },
+              { icon: Wind, label: 'Breathwork', color: 'from-cyan-500 to-sky-500', bg: 'from-cyan-500/20 to-sky-500/10' },
+            ].map((workout, i) => (
+              <button
+                key={i}
+                onClick={() => workout.label === 'Grounding' ? setIntervention('grounding') : workout.label === 'Breathwork' ? setIntervention('breathing') : null}
+                className="group flex flex-col items-center gap-3 p-5 rounded-[24px] bg-gradient-to-br border border-slate-700/50 hover:border-slate-600 transition-all hover:scale-105 hover:shadow-lg hover:shadow-slate-900/50"
+                style={{ background: `linear-gradient(135deg, rgba(30,41,59,0.8) 0%, rgba(30,41,59,0.4) 100%)` }}
+              >
+                <div className={`w-16 h-16 rounded-[18px] bg-gradient-to-br ${workout.bg} flex items-center justify-center transition-transform group-hover:scale-110`}>
+                  <workout.icon size={28} className={`bg-gradient-to-r ${workout.color} bg-clip-text`} style={{ color: 'transparent', background: `linear-gradient(135deg, var(--tw-gradient-stops))`, WebkitBackgroundClip: 'text', backgroundClip: 'text' }} />
+                  <workout.icon size={28} className="absolute opacity-80" style={{ color: workout.color.includes('pink') ? '#ec4899' : workout.color.includes('violet') ? '#8b5cf6' : workout.color.includes('indigo') ? '#6366f1' : workout.color.includes('emerald') ? '#10b981' : workout.color.includes('amber') ? '#f59e0b' : '#06b6d4' }} />
+                </div>
+                <span className="text-sm font-medium text-slate-200 text-center">{workout.label}</span>
+              </button>
+            ))}
           </div>
         </section>
 
