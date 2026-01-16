@@ -51,11 +51,11 @@ export default function App() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Calculate dynamic logo size based on scroll (224px -> 64px, faster shrink)
-  const logoHeight = Math.max(64, 224 - scrollY * 1.5)
-  const headerPadding = Math.max(12, 32 - scrollY * 0.2)
-  const showBadge = scrollY < 80
-  const isMinimized = logoHeight <= 64
+  // Calculate dynamic logo size based on scroll (224px -> 80px)
+  const logoHeight = Math.max(80, 224 - scrollY * 2)
+  const headerPadding = Math.max(0, 32 - scrollY * 0.5)
+  const showBadge = scrollY < 60
+  const isMinimized = scrollY > 100 // Only glide left after significant scroll past min size
 
   const sendMessage = async (content: string) => {
     if (!content.trim() || isLoading) return
@@ -196,28 +196,38 @@ export default function App() {
       </div>
 
       {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-neutral-500/30 bg-gradient-to-b from-neutral-400/95 via-neutral-500/90 to-neutral-600/85 backdrop-blur-xl transition-all duration-200">
+      <header className="sticky top-0 z-50 border-b border-neutral-500/30 bg-gradient-to-b from-neutral-400/95 via-neutral-500/90 to-neutral-600/85 backdrop-blur-xl transition-all duration-300 ease-out">
         <div 
-          className={`max-w-5xl mx-auto px-4 flex transition-all duration-200 ${isMinimized ? 'flex-row items-center justify-between' : 'flex-col items-center gap-3'}`}
-          style={{ paddingTop: `${headerPadding}px`, paddingBottom: `${headerPadding}px` }}
+          className="max-w-5xl mx-auto px-4 flex items-center transition-all duration-300 ease-out"
+          style={{ 
+            paddingTop: `${headerPadding}px`, 
+            paddingBottom: `${headerPadding}px`,
+            justifyContent: isMinimized ? 'space-between' : 'center',
+            flexDirection: isMinimized ? 'row' : 'column',
+            gap: isMinimized ? '0' : '12px'
+          }}
         >
-          <div className="relative transition-all duration-200">
-            {!isMinimized && (
-              <div 
-                className="absolute inset-0 bg-gradient-to-r from-teal-400/20 via-white/30 to-emerald-400/20 blur-2xl transition-all duration-200"
-                style={{ transform: `scale(${1.5 - scrollY * 0.005})` }}
-              />
-            )}
+          <div className="relative transition-all duration-300 ease-out">
+            <div 
+              className="absolute inset-0 bg-gradient-to-r from-teal-400/20 via-white/30 to-emerald-400/20 blur-2xl transition-all duration-300"
+              style={{ 
+                transform: `scale(${Math.max(0, 1.5 - scrollY * 0.01)})`,
+                opacity: Math.max(0, 1 - scrollY * 0.01)
+              }}
+            />
             <img 
               src="/logo.png" 
               alt="Vault" 
-              className="relative w-auto transition-all duration-200"
+              className="relative w-auto transition-all duration-300 ease-out"
               style={{ height: `${logoHeight}px` }}
             />
           </div>
           <div 
-            className={`flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 transition-all duration-200 ${isMinimized ? 'scale-90' : ''}`}
-            style={{ opacity: showBadge || isMinimized ? 1 : 0, transform: !showBadge && !isMinimized ? 'translateY(-10px)' : 'translateY(0)' }}
+            className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 transition-all duration-300 ease-out"
+            style={{ 
+              opacity: showBadge || isMinimized ? 1 : 0, 
+              transform: `translateY(${!showBadge && !isMinimized ? '-10px' : '0'}) scale(${isMinimized ? 0.9 : 1})`
+            }}
           >
             <TrendingUp size={16} className="text-emerald-400" />
             <span className="text-sm font-medium text-emerald-400">+18% this week</span>
